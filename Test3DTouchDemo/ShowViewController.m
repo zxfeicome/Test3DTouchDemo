@@ -7,6 +7,7 @@
 //
 
 #import "ShowViewController.h"
+#import <NotificationCenter/NotificationCenter.h>
 
 @interface ShowViewController ()
 
@@ -21,10 +22,15 @@
 //
 //    });
     self.showLabel.text = self.showStr;
+    [self hiddeTodayExtension];
+}
+//隐藏插件
+- (void)hiddeTodayExtension
+{
+    [[NCWidgetController widgetController] setHasContent:NO forWidgetWithBundleIdentifier:@"com.design.TestTouchDemo.TodayTools"];
 }
 - (IBAction)saveTitleDataAction:(id)sender {
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.Test3DTouch"];
-//    NSString *title = [defaults objectForKey:@"Test_Title_key"];
     if (self.textField.text.length) {
         [defaults setObject:self.textField.text forKey:@"Test_Title_key"];
         [defaults synchronize];

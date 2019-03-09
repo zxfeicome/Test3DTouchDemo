@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ShowViewController.h"
+#import <NotificationCenter/NotificationCenter.h>
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate>
 
@@ -23,7 +24,23 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self showTodayExtension];
+}
 
+//让隐藏的插件重新显示
+- (void)showTodayExtension
+{
+    [[NCWidgetController widgetController] setHasContent:YES forWidgetWithBundleIdentifier:@"com.design.TestTouchDemo.TodayTools"];
+}
+
+//隐藏插件
+- (void)hiddeTodayExtension
+{
+    [[NCWidgetController widgetController] setHasContent:NO forWidgetWithBundleIdentifier:@"com.design.TestTouchDemo.TodayTools"];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
